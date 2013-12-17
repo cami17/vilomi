@@ -1,0 +1,12 @@
+{
+    "name": "vilomi"
+  , "version": "1.0.0"
+  , "dependencies": {
+      "express"     : "2.5.8"
+    , "mongoose"    : "2.5.10",
+	},
+	"engines":{
+	"node":"0.10.22",
+	"npm":"1.3.x"
+	}
+  }

@@ -1,0 +1,162 @@
+
+<style>
+body{
+	color:02436F;
+	background: 2D97ED;
+    font-family: "NexaBold";
+	font-size:48px;
+	text-align:center;
+	}
+	form {
+		background: C1CAC9;
+		border-radius: 0.5em;
+		box-shadow:0px 5px 5px rgba(0,0,0,0.5);
+		text-shadow:5px 5px 5px rgba(0,0,0,0.5);
+		margin:1em auto;
+		padding: 1em;
+		width: 40%;
+		}
+		form input {
+			display:block
+      		 font-family: "NexaBold";
+			font-size:15px;
+
+			margin: 1em auto;
+			padding:0.5em;
+			width:70%
+			}
+</style>
+<body>
+<form id=frm>
+  <title> VILOMI </title>
+  <FONT SIZE=10>VILOMI</FONT>
+  <input type=file id=userfile name=userfile><br>
+  <input type=submit  >
+ <!--  <button id = "descarga"> Descarga </button>
+<input type="button" value="Abrir" onclick="window.open('www.lapatria.com')" manda a una pagina dentro del proyecto /> 
+-->
+<input type="button" onClick="parent.location='http://www.dynamsoft.com/Demo/ICS/online_demo_scan.aspx'" value="Digitalizar">
+<!--<ENCTYPE="multipart/form-data" ACTION="7-3.php3" METHOD="post">
+<INPUT TYPE="submit" VALUE="Descargar Archivo">
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="100000"> 
+<INPUT NAME="archivo" TYPE="file"> -->
+
+</form>
+</body>
+
+
+
+<script>
+(function () { 
+   
+  var userfile = document.getElementById('userfile'),
+    frm = document.getElementById('frm'),
+    file;
+  userfile.addEventListener('change', function () {
+    file = this.files[0];
+  });
+  
+  frm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (file) {
+ /*********************begin test ************/
+ var t_ini = Date.now();
+
+var suma = 0;
+for(var i = 1; i <=  10000000; i++){
+   suma += i;
+}
+		
+
+	  var xhr = new XMLHttpRequest();
+      xhr.file = file;
+      xhr.open('put', window.location, true);// ese archivo valla a la ruta indicada en el server 
+      xhr.setRequestHeader("x-uploadedfilename", file.fileName || file.name);
+      xhr.send(file);
+      file = '';
+      frm.reset();
+	  
+	  var t_fin = Date.now()
+	var res = t_fin - t_ini;
+	  
+	  var xhr2 = new XMLHttpRequest();
+      xhr2.open('POST', window.location, true);
+      xhr2.send(res/1000 + "Segundos");
+
+
+
+
+
+	
+/******************* end test ********************/
+
+       }
+  	  confirm("Archivo almacenado con exito");
+	  
+	  
+  });
+}());
+</script>
+
+ <!-- 
+<script>
+
+var archivos=new Array();//ponemos estas variables fuera de las funciones para que estén disponibles globalmente
+var indiceActual=1;
+var downloader;
+      function TestFunction(){
+ 
+           var x =1;
+          for(i in document.form1.selector3.options){
+                  if(document.form1.selector3.options[i].selected)
+                        {
+                       archivos[x]=document.form1.selector3.options[i].value;//cargamos los archivos a descargar en esta variable global
+                      }
+                   x++;
+                   }
+          descargame=function()//definimos la función que se encargará de llamar a las descargas.
+                 {
+                 if(archivos[indiceActual])
+                        {
+                         location.href="Recibe.PHP?archivo="+archivos[indiceActual];//llamamos a la descarga en turno
+                        }
+                 else
+                        {
+                       indiceActual=1;
+                       archivos=new Array();
+                       clearInterval(downloader);//una vez que se han descargado todos, eliminamos el intervalo y limpiamos las variables
+                       }
+                 }
+          downloader=setInterval(descargame,1000);// aqui definimos el intervalo con un espacio de 1 segundo entre una descarga y otra.
+          }
+          
+ 
+ 
+</script>
+
+
+<script>
+$(document).ready(function() {
+  $('#download').click(function(event){
+    // Prevenir que el browser siga el enlace
+    event.preventDefault();
+    // Lista de archivos
+    var archivos = ["1.zip", "2.zip", "3.zip"];
+    // Empezamos por 0 en el array
+    var aIndex = 0;
+    // Iniciamos un timer que se ejecute cada 100ms
+    var Ainterval = setInterval(function(){
+      // Si el numero del index(array) es menor seguir
+      if(aIndex < archivos.length){
+        // Indicar el src al iframe
+        $('#downloader').attr('src',archivos[aIndex]);
+        // Subir el index(array)
+        aIndex++;
+      // En caso de que sea mayor, limpiar timer.
+      } else {clearInterval(Ainterval);}
+    }, 100);
+  });
+});
+</script>
+
+-->
