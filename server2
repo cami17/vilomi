@@ -1,0 +1,27 @@
+var nombrebd ='vilomi';
+var collectionname = 'estadisticas';
+var walk    = require('walk');
+var files   = [];
+var mongodb = require('mongodb');
+var server = new mongodb.Server("127.0.0.1" ,  27017 ,  {}, {safe: true});
+var dbTest = new mongodb.Db(nombrebd, server, {});
+
+var t_ini = Date.now();
+ 
+dbTest.open(function (error, client) {
+  if (error) throw error;
+  var walker  = walk.walk('C:/Users/Public/Pictures/scanner/herman//', { followLinks: false });
+  var collection = new mongodb.Collection(client, collectionname);
+  walker.on('file', function(root, stat, next) {
+    var nuevonombre = stat.name.split('.');  
+    var t_fin = Date.now()
+    var res = t_fin - t_ini;
+    collection.insert({'nombre': nuevonombre[0], 'tipo' : nuevonombre[1], 'tiempo_subida':res/1000 + 'Segundos' });
+    console.log(res/1000 + 'Segundos');
+    next();
+  });
+  walker.on('end', function() {
+    console.log("No mas archivos");
+    //mongo.closeConecction();
+  });
+});
